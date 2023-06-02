@@ -7,6 +7,16 @@
     {% assign title = title | uri_escape %}
     {% assign url = page.url | absolute_url | url_encode %}
 
+    <i
+      id="copy-link"
+      class="fa-fw fas fa-link small"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="{{ site.data.locales[include.lang].post.button.share_link.title }}"
+      data-title-succeed="{{ site.data.locales[include.lang].post.button.share_link.succeed }}"
+    >
+    </i>
+
     {% for share in site.data.share.platforms %}
       {% assign link = share.link | replace: 'TITLE', title | replace: 'URL', url %}
       <a
@@ -19,15 +29,5 @@
         <i class="fa-fw {{ share.icon }}"></i>
       </a>
     {% endfor %}
-
-    <i
-      id="copy-link"
-      class="fa-fw fas fa-link small"
-      data-bs-toggle="tooltip"
-      data-bs-placement="top"
-      title="{{ site.data.locales[include.lang].post.button.share_link.title }}"
-      data-title-succeed="{{ site.data.locales[include.lang].post.button.share_link.succeed }}"
-    >
-    </i>
   </span>
 </div>
