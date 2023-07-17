@@ -9,10 +9,9 @@ image:
   path: /assets/img/posts/2023-06-03/code.jpg
 ---
 
-[Last time](../dot-product) we went over the super versatile vector dot product. Today we'll look at the other way you can multiply vectors.
+Another way to multiply two vectors is called the cross product. Other names for it are the outer product and the vector product. Given that the dot product produces a scalar value and is also known as the scalar product, you'd be right if you guessed the cross product results in a  whole new vector.
 
-## Defining the Cross Product
-The cross product is quite different to the dot product. First, it yields a whole new vector, rather than a scalar value. Second, while a dot product can be evaluated for any dimension, a cross product is only defined for 3D vectors. Given that, I'll just write out the function here.
+The cross product also differs from the dot product in that it's only defined for three dimensional vectors. Here's how I've implemented it in code:
 
 ```cpp
 Vec3 cross(Vec3 const &a, Vec3 const &b) {
@@ -24,11 +23,13 @@ Vec3 cross(Vec3 const &a, Vec3 const &b) {
 }
 ```
 
-As you can see, it "crosses" all over the place, multiplying different components. What's the result of this multiplication? The cross product gives you a new vector that's perpendicular to the original two. Like the dot product, the cross product can be used to explore how vectors relate to one another. Let's say again that the angle between $\vec a$ and $\vec b$ is *theta*, or $\theta$. The length of the vector you get from crossing $\vec a$ and $\vec b$ is equal to the length of both vectors times the sine of the angle between them. Written as an equation:
+As you can see, it "crosses" all over the place, multiplying different components. The result of this arithmetic is a new vector that's perpendicular to the original two. If a dot product can be seen as a measure of how similar two vectors are, then a cross product can similarly be said to measure how different two vectors are.
+
+Remember how the dot product of two vectors relates to the cosine of the angle between those vectors? There is a relationship between the cross product of two vectors and the sine of the angle between them. Specifically, the length of the vector you get from crossing $\vec a$ and $\vec b$ is equal to the length of $\vec a$ and $\vec b$ times the sine of the angle between them. Written as an equation:
 
 $$||\vec a \times \vec b|| = ||\vec a||\ ||\vec b||\ sin(\theta)$$
 
-So here we are again seeing that trig and normalized vectors are probably going to be useful. But let's start with some unit tests to explore how the cross product behaves before looking at applications.
+The fact that dot relates to cosine and cross relates to sine helps emphasize how their uses are opposed. Calling them opposites would be silly, but they both explore how a pair of vectors relate to one another and whether you're looking for a metric of similarity or difference influences which product is helpful to you.
 
 ## Basic Unit Tests
 I'll test with some fixed values first:
@@ -159,7 +160,7 @@ TEST_CASE("Cross product is associative with scalar multiplication",
 What happens when there _is no_ perpendicular vector relative to the two vectors being fed into the cross product? For example, what happens if you cross two parallel vectors? Or what if you cross some vector with the zero vector? In both of these cases, the cross product will give you back the zero vector. Let's test that:
 
 ```cpp
-TEST_CASE("Crossing parallel vectors", "[vectors][cross product]") {
+TEST_CASE("Crossing parallel vectors yields zero", "[vectors][cross product]") {
     for(uint32_t i = 0u; i < TEST_REPEATS; ++i) {
         Vec3 a = random_vec3();
 
@@ -182,7 +183,7 @@ Hold up a fist, then extend your thumb, index, and middle fingers at right angle
 
 You might've guessed that your middle finger will represent the $z$ axis, but if you chose to do this exercise with your right hand, your middle finger will be pointing toward you. If you used your left hand however, your middle finger will be pointing away from you. While the $x$ and $y$ axes are identical between both hands, the $z$ axes are opposite one another. Yet, both $z$ axes are perfectly perpendicular to the first two.
 
-This is somewhat amusingly called handedness, and it can have a big effect on how your math turns out. In graphics particularly, there is no standard; you just have to be careful and always know what space you're working in. Like checking that your vectors are normalized before trying to compare them, it's hard to overstate the importance of keeping handedness in mind while designing and debugging.
+This is somewhat amusingly called handedness, and it can have a big effect on how your math turns out on screen. In graphics particularly, there is no standard between left- and right-handedness; you just have to be careful and keep track of which one you're working with. Much like normalizing your vectors before doing certain work with them, it's hard to overstate the importance of keeping handedness in mind while designing and debugging.
 
 All that being said, we did just show that the cross product is anti-commutative. This means that even though any cross product can have two valid answers in terms of perpendicularity, we can control which one we get by controlling the order of the parameters. For example, since I have these as unit vectors in my code:
 
@@ -195,16 +196,16 @@ Vec3 const Vec3::unit_z { 0.0f, 0.0f, 1.0f };
 This test will pass:
 
 ```cpp
-REQUIRE(cross(Vec3::unit_z, Vec3::unit_x) == Vec3::unit_y);
+REQUIRE(cross(Vec3::unit_x, Vec3::unit_y) == Vec3::unit_z);
 ```
 
 But this one will fail:
 
 ```cpp
-REQUIRE(cross(Vec3::unit_x, Vec3::unit_z) == Vec3::unit_y);
+REQUIRE(cross(Vec3::unit_y, Vec3::unit_x) == Vec3::unit_y);
 ```
 
-As the second test's cross product results in $[0,-1,0]$. So, here's is the test block I wrote for this behavior:
+As the second test's cross product results in a negative unit vector along the $z$ axis, or $[0,0,-1]$. So, here's is the test block I wrote for this behavior:
 
 ```cpp
 TEST_CASE("Crossing unit vectors produces the a third unit vector",
@@ -215,8 +216,3 @@ TEST_CASE("Crossing unit vectors produces the a third unit vector",
     REQUIRE(cross(Vec3::unit_y, Vec3::unit_z) == Vec3::unit_x);
 }
 ```
-
-## Conclusion
-Unlike the dot product, I don't have any game-adjacent examples of how the cross product is commonly used. However, we will be making use of it in conjunction with other, forthcoming features of this math library.
-
-The next subject we're going to cover is the last foundational data structure for 3D math: the matrix!

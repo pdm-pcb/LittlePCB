@@ -20,7 +20,7 @@
             }
           },
           {
-            "id": "24d6665f0b4a5c4d",
+            "id": "05db327ce321ea66",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -42,8 +42,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "24d6665f0b4a5c4d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "_posts/2023-07-17-vector-multiplication.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -110,7 +123,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/2023-06-05-vectors.md",
+                "file": "_posts/2023-07-17-vector-multiplication.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +140,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/2023-06-05-vectors.md",
+                "file": "_posts/2023-07-17-vector-multiplication.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +163,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/2023-06-05-vectors.md"
+                "file": "_posts/2023-07-17-vector-multiplication.md"
               }
             }
           }
@@ -171,11 +184,16 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0630e3fe6da9a712",
+  "active": "24d6665f0b4a5c4d",
   "lastOpenFiles": [
+    "_posts/2023-07-15-cross-product.md",
+    "_posts/2023-07-17-vector-multiplication.md",
     "_posts/2023-07-01-dot-product.md",
     "_posts/2023-06-05-vectors.md",
-    "_posts/2023-07-15-cross-product.md",
+    "_site/posts/vector-multiplication/index.html",
+    "_site/posts/vector-multiplication",
+    "_site/posts/dot-product-1/index.html",
+    "_site/posts/dot-product-1",
     "().md",
     "_site/().md",
     "_site/posts/cross-product/index.html",
@@ -184,10 +202,6 @@
     "_site/posts/dot-product",
     "_site/posts/the-dot-product/index.html",
     "_site/posts/the-dot-product",
-    "_site/posts/the-cross-product/index.html",
-    "_site/posts/the-cross-product",
-    "_site/posts/dot-and-cross-products-1/index.html",
-    "_site/posts/dot-and-cross-products-1",
     "_site/assets/img/posts/2023-06-03/code.jpg"
   ]
 }
